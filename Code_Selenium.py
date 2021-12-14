@@ -40,19 +40,12 @@ while not is_last_page:
         print("\n\n")
         titre = offer.find_element_by_css_selector("h3 a").text
         #title = offer.find_element_by_partial_link_text("/avis/detail/")
-        print("Titre : ",titre)
         date_publi = offer.find_element_by_css_selector("p.date-publishing").text
-        print("Date de publication : ",date_publi)
         date_limite = offer.find_element_by_css_selector("p.date-response").text
-        print(date_limite)
         avisid = offer.find_element_by_css_selector("div label").text
-        print("identifiant : ",avisid)
         avisid2 = re.search(r'\d+-\d+', avisid).group()
-        print("identifiant2 : ",avisid2)
         appels.append([avisid2, titre, date_publi, date_limite])
-        print("\n\n")
-       
-        
+        print("\n\n")   
     try:
         next_page = driver.find_element_by_css_selector("li.next a")
         next_page.send_keys(Keys.ENTER)
@@ -61,10 +54,6 @@ while not is_last_page:
     if i>2: 
         break #2 pages parcourut
     sleep(3)
-    
-
-
-
 
 # Pour obtenir les organismes acheteur
 for appel in appels:
@@ -72,12 +61,12 @@ for appel in appels:
         driver.get('https://www.boamp.fr/avis/detail/{identite}'.format(identite = appel.identifiant))
         infos1 = driver.find_element_by_class_name("detail-avis.detail-main-1")
         Organisme_acheteur = infos1.find_element_by_css_selector("p").text
-        #num = infos1.find_element_by_tag_name('strong')
-        #num = infos1.find_element_by_partial_link_text("Adresse").text
-        #appel.Organisme_acheteur = Organisme_acheteur
         appel.extend(Organisme_acheteur)
     except:
         print("Pas d'organisme acheteur")
+
+for appel in appels:
+    print(appel,'\n')
 
 import pickle
 with open(newPath, 'wb') as f:

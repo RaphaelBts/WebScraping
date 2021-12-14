@@ -16,8 +16,8 @@ import os
 import sys
 
 #Navigate to Appel_offre_liste_test directory
-newPath=os.path.abspath("./Appel_offre_listetest.txt")
-
+newPath=os.path.abspath("./Appel_offre_listetest2.txt")
+newPath2=os.path.abspath("./Appel_offre_listetest.txt")
 
 driver = webdriver.Chrome() 
 driver.get('https://www.boamp.fr/')
@@ -182,27 +182,30 @@ with open (newPath, 'rb') as f:
     appels = pickle.load(f)
 
 for appel in appels:
+    print("appel avant : ", appel)
     driver.get('https://www.boamp.fr/avis/detail/{identite}'.format(identite = appel[0]))
     item = driver.find_element_by_css_selector("div[id='detail-avis-content'] > table > tbody > tr > td[class = 'txt']")
     texte_detail =item.get_attribute("innerText")
     signification_NUTS = list(v for k,v in dictionnaire_NUTS.items() if k in texte_detail)
-    print(signification_NUTS)
     try:
-        signification_NUTS = str(signification_NUTS[-1])
+        signification_NUTS2 = str(signification_NUTS[-1])
         print(signification_NUTS)
     except:
-        signification_NUTS = "None"
-    appel.append(signification_NUTS)
+        signification_NUTS2 = "None"
+    appel.append(signification_NUTS2)
+    print("appel après : ", appel)
+
+for appel in appels:
     print(appel)
 
-with open(newPath, 'wb') as f:
+with open(newPath2, 'wb') as f:
     pickle.dump(appels, f)    
     """
     for elm in codes:
         print("elm : ",elm, "\n\n elm text : ",elm.text)
     print("c'est le code",codes)
     """   
-    
+  
 driver.quit()
 
 print("blabla")
