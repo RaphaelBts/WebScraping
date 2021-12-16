@@ -1,0 +1,11 @@
+import os
+import sys
+import pickle
+import pandas as pd
+newPath=os.path.abspath("./Appel_offre_listetest.txt")
+
+with open (newPath, 'rb') as f:
+    appels = pickle.load(f)
+    
+df = pd.DataFrame (appels, columns = ['identifiant', 'titre','date_publi','date_limite','Code NUTS'])
+df.to_excel('appels_5cols.xlsx')
