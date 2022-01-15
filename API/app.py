@@ -1,6 +1,6 @@
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+#import numpy as np
+#import pandas as pd
+#import matplotlib.pyplot as plt
 import random as rd
 from math import *
 from datetime import datetime
@@ -16,6 +16,12 @@ def inject_now():
 @app.route("/")
 def index():
     return render_template('index.html')
+
+# For the future ameliorated versions : NOT DEVELOPPED YET
+@app.route("/subscription")
+def sub():
+    return render_template('subsciption.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
