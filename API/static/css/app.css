@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(45, 51, 17);
+    background-color: rgb(40, 17, 51);
     color: #fff;
 }
 
@@ -10,14 +10,14 @@ body {
 }
 
 a {
-    color: rgb(238, 197, 17);
+    color: rgb(238, 17, 164);
 }
 
 nav {
     text-align: center;
     background-color: #000;
     padding: 1em 0;
-    border-top: 4px solid rgb(238, 197, 17);
+    border-top: 4px solid rgb(238, 17, 183);
 }
 
 nav ul {
@@ -41,7 +41,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: rgb(238, 197, 17);
+    color: rgb(238, 17, 201);
 }
 
 footer {

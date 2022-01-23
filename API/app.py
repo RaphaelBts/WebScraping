@@ -29,12 +29,11 @@ def search():
     if not 'new_prediction' in locals():
         new_prediction=''
     new_data=pd.DataFrame(data=request.form, index=[0])
-    ask=['Number of words in the title','Number of words in the text','Number of links','Number of images','Day of publication(monday...)','Subject(lifestyle,entertainement,buisness,socmed,tech,world)']
-    ask_type=['number','number','number','number','number','text','text']
-    print(new_data)
+    ask=['Exemple 1', 'Exemple 2']                      # Add things to ask
+    ask_type=['number', 'text']                         # Add type of the things to ask
     if not new_data.empty:
-        new_prediction=run_model(fill_row(new_data),seed=1977)
-    return render_template('search.html')
+        new_prediction='Bravo !'                        # Add function to return offers.
+    return render_template('search.html', ask=ask, ask_type=ask_type, prediction=new_prediction)
 
 if __name__ == "__main__":
     app.run(debug=True)

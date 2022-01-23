@@ -3,7 +3,7 @@
 {% block title%}Search{% endblock%}
 
 {% block body %}
-    <form action="{{ url_for('newrow') }}" method="post" class="form-horizontal">
+    <form action="{{ url_for('search') }}" method="post" class="form-horizontal">
         <table>
             <thead>
                 <tr>
@@ -29,7 +29,7 @@
         </button>
     </form>
 
-    <h1>Article popularity prediction</h1>
+    <h1>Result</h1>
     <div>
         <p>{{ prediction }}</p>
     </div>
