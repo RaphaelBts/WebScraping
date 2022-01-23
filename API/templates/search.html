@@ -1,0 +1,37 @@
+{% extends 'default.html' %}
+
+{% block title%}Search{% endblock%}
+
+{% block body %}
+    <form action="{{ url_for('newrow') }}" method="post" class="form-horizontal">
+        <table>
+            <thead>
+                <tr>
+                    {% for word in ask %}
+                        <th><label for="{{ word }}">{{ word }}</label></th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for word in ask %}
+                        <td>
+                            <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
+                                   name="{{ word }}" required size="6"/>
+                        </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="button style" type="submit" id="button_submit">
+            Test
+        </button>
+    </form>
+
+    <h1>Article popularity prediction</h1>
+    <div>
+        <p>{{ prediction }}</p>
+    </div>
+    
+{% endblock %}
