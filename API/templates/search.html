@@ -3,7 +3,7 @@
 {% block title%}Search{% endblock%}
 
 {% block body %}
-    <form action="{{ url_for('search') }}" method="post" class="form-horizontal">
+    <form id="form_search" action="{{ url_for('search') }}" method="post" class="form-horizontal">
         <table>
             <thead>
                 <tr>
@@ -16,8 +16,26 @@
                 <tr>
                     {% for word in ask %}
                         <td>
-                            <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
+                            {% if loop.index in ask_select.keys() %}
+                                <select>
+                                    <input class="form-control" type="{{ ask_type[loop.index] }}" ID="{{ word }}"
+                                    name="{{ word }}" required size="6" form="form_search"/>
+                                    {% for a_s in ask_select[loop.index] %}
+                                        <option value="{{ a_s }}">{{ a_s }}</option>
+                                    {% endfor %}
+                                </select>
+                            {% elif loop.index in ask_checkbox.keys() %}
+                                {% for a_s in ask_checkbox[loop.index] %}
+                                    <div>
+                                        <input type="radio" class="form-control" type="{{ ask_type[loop.index] }}" ID="{{ word }}"
+                                        name="{{ word }}" required size="6" form="form_search"/>
+                                        <label for="{{ a_s }}">{{ a_s }}</label>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
                                    name="{{ word }}" required size="6"/>
+                            {% endif %}
                         </td>
                     {% endfor %}
                 </tr>
