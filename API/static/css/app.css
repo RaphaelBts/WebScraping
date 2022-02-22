@@ -1,23 +1,33 @@
+html {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 body {
-    background-color: rgb(40, 17, 51);
+    position:relative;
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(27, 191, 202);
     color: #fff;
 }
 
 .wrapper {
-    width: 1440px;
-    max-width: 90%;
+    position: relative;
+    border: double;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50%);
     margin: 0 auto;
 }
 
 a {
-    color: rgb(238, 17, 164);
+    color: rgb(27, 191, 202);
 }
 
 nav {
     text-align: center;
-    background-color: #000;
+    background-color: rgb(34, 88, 102);
     padding: 1em 0;
-    border-top: 4px solid rgb(238, 17, 183);
+    border-top: 4px solid rgb(27, 191, 202);
 }
 
 nav ul {
@@ -41,9 +51,44 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: rgb(238, 17, 201);
+    color: rgb(27, 191, 202);
 }
 
 footer {
-    margin: 50px;
+    position: fixed;
+
+    bottom : 0;
+    left:0;
+
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.left .center .right {
+
+}
+
+
+select, input {
+    font-family:inherit;
+    border-radius: 6px;
+    background: rgba(3, 237, 245, 0.1);
+    border-style:dashed;
+    border-width: 0.05cm;
+    width: 100px;
+}
+
+select:focus {
+    background: rgba(0,0,0,.1);
+    border-radius: 5px;
+    outline: none;
+    color: rgb(255, 255, 255);
+}
+
+input:focus, textarea:focus {
+    background   : rgba(0,0,0,.1);
+    border-radius: 5px;
+    outline      : none;
+    color: rgb(255, 255, 255);
 }

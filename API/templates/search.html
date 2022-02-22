@@ -4,52 +4,133 @@
 
 {% block body %}
     <form id="form_search" action="{{ url_for('search') }}" method="post" class="form-horizontal">
-        <table>
-            <thead>
-                <tr>
-                    {% for word in ask %}
-                        <th><label for="{{ word }}">{{ word }}</label></th>
+        <div class="div_form">
+            {% for word in ask %}
+              {% if loop.index%3==1 %}
+              <div class="left">
+                <label for="{{ word }}">{{ word }}</label>
+                {% if word in ask_select.keys() %}
+                    <select name="{{ word }}">
+                        {% for a_s in ask_select[word] %}
+                            <option value="{{ a_s }}">{{ a_s }}</option>
+                        {% endfor %}
+                    </select>
+                {% elif word in ask_checkbox.keys() %}
+                    {% for a_s in ask_checkbox[word] %}
+                        <div>
+                            <input type="checkbox" class="form-control" ID="{{ a_s }}"
+                            name="{{ a_s }}" form="form_search"/>
+                            <label for="{{ a_s }}">{{ a_s }}</label>
+                        </div>
                     {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    {% for word in ask %}
-                        <td>
-                            {% if loop.index in ask_select.keys() %}
-                                <select>
-                                    <input class="form-control" type="{{ ask_type[loop.index] }}" ID="{{ word }}"
-                                    name="{{ word }}" required size="6" form="form_search"/>
-                                    {% for a_s in ask_select[loop.index] %}
-                                        <option value="{{ a_s }}">{{ a_s }}</option>
-                                    {% endfor %}
-                                </select>
-                            {% elif loop.index in ask_checkbox.keys() %}
-                                {% for a_s in ask_checkbox[loop.index] %}
-                                    <div>
-                                        <input type="radio" class="form-control" type="{{ ask_type[loop.index] }}" ID="{{ word }}"
-                                        name="{{ word }}" required size="6" form="form_search"/>
-                                        <label for="{{ a_s }}">{{ a_s }}</label>
-                                    </div>
-                                {% endfor %}
-                            {% else %}
-                                <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
-                                   name="{{ word }}" required size="6"/>
-                            {% endif %}
-                        </td>
-                    {% endfor %}
-                </tr>
-            </tbody>
-        </table>
+                {% else %}
+                    {% if ask_type[loop.index]=='number' %}
+                        <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
+                        name="{{ word }}" placeholder=1 list="departements"/>
 
-        <button class="button style" type="submit" id="button_submit">
-            Test
-        </button>
+                        <datalist id="departements">
+                            {% for i in range(96) %}
+                                <option value="{{ i }}">
+                            {% endfor %}
+                            {% for i in range(971,975) %}
+                                <option value="{{ i }}">
+                            {% endfor %}
+                            <option value="976">
+                        </datalist>
+                    {% else %}
+                        <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
+                        name="{{ word }}" placeholder="Enter word" required size="6"/>
+                    {% endif %}
+                {% endif %}
+              </div>
+              {% elif loop.index%3==2 %}
+              <div class="center">
+                <label for="{{ word }}">{{ word }}</label>
+                {% if word in ask_select.keys() %}
+                    <select name="{{ word }}">
+                        {% for a_s in ask_select[word] %}
+                            <option value="{{ a_s }}">{{ a_s }}</option>
+                        {% endfor %}
+                    </select>
+                {% elif word in ask_checkbox.keys() %}
+                    {% for a_s in ask_checkbox[word] %}
+                        <div>
+                            <input type="checkbox" class="form-control" ID="{{ a_s }}"
+                            name="{{ a_s }}" form="form_search"/>
+                            <label for="{{ a_s }}">{{ a_s }}</label>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {% if ask_type[loop.index]=='number' %}
+                        <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
+                        name="{{ word }}" placeholder=1 list="departements"/>
+
+                        <datalist id="departements">
+                            {% for i in range(96) %}
+                                <option value="{{ i }}">
+                            {% endfor %}
+                            {% for i in range(971,975) %}
+                                <option value="{{ i }}">
+                            {% endfor %}
+                            <option value="976">
+                        </datalist>
+                    {% else %}
+                        <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
+                        name="{{ word }}" placeholder="Enter word" required size="6"/>
+                    {% endif %}
+                {% endif %}
+              </div>
+              {% elif loop.index%3==0 %}
+              <div class="right">
+                <label for="{{ word }}">{{ word }}</label>
+                {% if word in ask_select.keys() %}
+                    <select name="{{ word }}">
+                        {% for a_s in ask_select[word] %}
+                            <option value="{{ a_s }}">{{ a_s }}</option>
+                        {% endfor %}
+                    </select>
+                {% elif word in ask_checkbox.keys() %}
+                    {% for a_s in ask_checkbox[word] %}
+                        <div>
+                            <input type="checkbox" class="form-control" ID="{{ a_s }}"
+                            name="{{ a_s }}" form="form_search"/>
+                            <label for="{{ a_s }}">{{ a_s }}</label>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {% if ask_type[loop.index]=='number' %}
+                        <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
+                        name="{{ word }}" placeholder=1 list="departements"/>
+
+                        <datalist id="departements">
+                            {% for i in range(96) %}
+                                <option value="{{ i }}">
+                            {% endfor %}
+                            {% for i in range(971,975) %}
+                                <option value="{{ i }}">
+                            {% endfor %}
+                            <option value="976">
+                        </datalist>
+                    {% else %}
+                        <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
+                        name="{{ word }}" placeholder="Enter word" required size="6"/>
+                    {% endif %}
+                {% endif %}
+              </div>
+              {% endif %}
+            {% endfor %}
+
+            <button class="button_style" type="submit" id="button_submit">
+                Test
+            </button>
+        </div>
     </form>
 
-    <h1>Result</h1>
-    <div>
-        <p>{{ prediction }}</p>
+    <div class="div_result">
+        <h1>Result</h1>
+        <div>
+            <p>{{ prediction }}</p>
+        </div>
     </div>
     
 {% endblock %}
