@@ -64,7 +64,7 @@ def search():
         for key in ask_select.keys():
             new_data[key]=[request.form.get(key)]
 
-        new_prediction=retrieve('D:/Thomas/Etude/ESILV/A7/PI2/Github/WebScraping/API/files/Mapa_Travaux_Traite.csv',
+        new_prediction=retrieve('API/files/Mapa_Travaux_Traite.csv',
             new_data['mot'][0],new_data['Famille'][0],new_data['code_departement'][0],new_data['famille_libelle'][0],new_data['perimetre'][0],
             new_data['procedure_categorise'][0],new_data['nature_categorise_libelle'][0],new_data['Criteres'][0][0],
             new_data['etat'][0],new_data['descripteur_libelle'][0],new_data['Type_marche'][0])                                                              # Add function to return offers.
