@@ -11,6 +11,8 @@ body {
 
 .wrapper {
     position: absolute;
+    margin: 0px;
+    padding: 0px;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -52,20 +54,20 @@ nav ul li a:hover {
 }
 
 form {
-    margin: 0;
-    padding: 0;
-}
-
-.div_form {
     background-color:cadetblue;
 
     margin: 5px;
+    margin-bottom: 20px;
     padding: 5px;
+
+    border-radius: 8px;
+}
+
+.div_form {    
+    position: relative;
 
     display: flex;
     flex-wrap: wrap;
-
-    border-radius: 8px;
 }
 
 .div_result {
@@ -77,20 +79,35 @@ form {
     border-radius: 8px;
 }
 
-.left {
-    border: solid red;
-    position: relative;
+.group {
+    position:relative;
+    margin: 10px;
     display: flex;
     flex-direction: column;
-    left: 0;
 }
 
 .right {
-    border: solid blue;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    margin-right: 0;
+    margin: 10px;
+    margin-top: 0%;
+    margin-right: 0%;
+    right:0%;
+    height: 70%;
+}
+
+button {
+    background-color: #747cdf;
+    color: white;
+    font-size: 15px;
+    border: none;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+button:hover {
+    transform: scale(1.05);
 }
 
 footer {

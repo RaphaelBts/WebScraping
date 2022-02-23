@@ -5,9 +5,10 @@
 {% block body %}
     <form id="form_search" action="{{ url_for('search') }}" method="post" class="form-horizontal">
         <div class="div_form">
+            <div class="left">
             {% for word in ask %}
-              {% if loop.index%3==1 %}
-              <div class="left">
+              {% if loop.index<(ask|length/3)+1 %}
+              <div class="group">
                 <label for="{{ word }}">{{ word }}</label>
                 {% if word in ask_select.keys() %}
                     <select name="{{ word }}">
@@ -43,8 +44,12 @@
                     {% endif %}
                 {% endif %}
               </div>
-              {% elif loop.index%3==2 %}
-              <div class="center">
+              {% elif loop.index<(2*ask|length/3)+1 %}
+                {% if loop.index<(ask|length/3)+2 %}
+                    </div>
+                    <div class="center">
+                {% endif %}
+                <div class="group">
                 <label for="{{ word }}">{{ word }}</label>
                 {% if word in ask_select.keys() %}
                     <select name="{{ word }}">
@@ -80,8 +85,12 @@
                     {% endif %}
                 {% endif %}
               </div>
-              {% elif loop.index%3==0 %}
-              <div class="right">
+              {% else %}
+                {% if loop.index<(2*ask|length/3)+2 %}
+                    </div>
+                    <div class="right">
+                {% endif %}
+                <div class="group">
                 <label for="{{ word }}">{{ word }}</label>
                 {% if word in ask_select.keys() %}
                     <select name="{{ word }}">
@@ -119,11 +128,12 @@
               </div>
               {% endif %}
             {% endfor %}
-
-            <button class="button_style" type="submit" id="button_submit">
-                Test
-            </button>
+            </div>
         </div>
+        
+        <div class="div_button" align="center"><button class="button_style" type="submit" id="button_submit">
+            Test
+        </button></div>
     </form>
 
     <div class="div_result">
