@@ -4,12 +4,15 @@ import pandas as pd
 
 import requests
 import json
+import regex as re
 
 import random as rd
 from math import *
 from datetime import datetime
 
 from flask import Flask,render_template,request
+
+from request import request_boamp,display_result
 
 app = Flask(__name__)
 
@@ -21,9 +24,9 @@ def inject_now():
 def index():
     return render_template('index.html')
 
-@app.route("/error")
-def error():
-    return render_template('error.html')
+@app.errorhandler(404)
+def error404(e):
+    return render_template('error404.html')
 
 # For the future ameliorated versions : NOT DEVELOPPED YET
 # If we want to get a profitable business 
@@ -38,20 +41,23 @@ def search():
         new_prediction=''
 
     ask=[
-        'mot','Famille','Criteres','Type_marche','descripteur_libelle','code_departement','nature_categorise_libelle',
+        'mot','famille','criteres','type_marche','descripteur_libelle','code_departement','nature_categorise_libelle',
         'famille_libelle','perimetre','procedure_categorise','etat'
         ]            # Add things to ask
     ask_type=['text','text','none', 'text','text','text','number','text','text','text','text','text','text']                              # Add type of the things to ask
     ask_select={
-        'Famille':['FNS','JOUE','MAP','DSP','DIVERS'],
-        'Type_marche':['TOUT','SERVICES','TRAVAUX','FOURNITURES'],
+        'famille':['FNS','JOUE','MAP','DSP','DIVERS'],
+        'type_marche':['TOUT','SERVICES','TRAVAUX','FOURNITURES'],
         'nature_categorise_libelle':['Avis de marché','Résultat de marché','Rectificatif','Avis informatif','Avis d\'intention de conclure','Modification','Autre','Periodique'],
         'etat':['INITIAL','RECTIFICATIF','RECTIFICANNUL','ANNULATION','MODIFICATION','INCONNU']
         }
     
-    ask_checkbox={'Criteres':["environnementaux","sociaux"]}
+    ask_checkbox={'criteres':["environnementaux","sociaux"]}
 
     new_data=pd.DataFrame(data=request.form, index=[0])
+
+    for values in ask_checkbox.values():
+        new_data.drop(values, axis=1, errors='ignore', inplace=True)
 
     if not new_data.empty:
 
@@ -64,14 +70,24 @@ def search():
         for key in ask_select.keys():
             new_data[key]=[request.form.get(key)]
 
-        new_prediction=retrieve('API/files/Mapa_Travaux_Traite.csv',
-            new_data['mot'][0],new_data['Famille'][0],new_data['code_departement'][0],new_data['famille_libelle'][0],new_data['perimetre'][0],
-            new_data['procedure_categorise'][0],new_data['nature_categorise_libelle'][0],new_data['Criteres'][0][0],
-            new_data['etat'][0],new_data['descripteur_libelle'][0],new_data['Type_marche'][0])                                                              # Add function to return offers.
+        parameters={}
+        for column in new_data.columns:
+            if len(new_data[column])>0:
+                if isinstance(new_data[column][0],list):
+                    if len(new_data[column][0])==0:
+                        parameters[column]=None
+                    else:
+                        parameters[column]=new_data[column][0][0]
+                else:
+                    parameters[column]=new_data[column][0]
+            else:
+                parameters[column]=None
+
+        new_prediction=display_result(request_boamp(**parameters))                                                            # Add function to return offers.
         #new_prediction=retrieve("FNS","sociaux","SERVICES","Menuiserie")  -- to test
     return render_template('search.html', ask=ask, ask_type=ask_type, prediction=new_prediction, ask_select=ask_select, ask_checkbox=ask_checkbox)
 
-""" Old retrieve function
+""" Old retrieve functions
 def retrieve(famille,criteres,type_marche,descripteur_libelle):
     infos={'dataset': "boamp", 
         'rows': 10,
@@ -109,7 +125,6 @@ def retrieve(mot,famille,code_departement,famille_libelle,perimetre,procedure_ca
     final_response=requests.get('https://boamp-datadila.opendatasoft.com/api/records/1.0/search/?',params=infos).json()
             #print(final_response.json())
     return final_response
-"""
 
 def retrieve(filename,mot,famille,code_departement,famille_libelle,perimetre,procedure_categorise,nature_categorise_libelle,criteres,etat,descripteur_libelle,type_marche):
     results=pd.read_csv(filename, index_col=0, low_memory=False)
@@ -143,6 +158,7 @@ def read_result(result_csv,mot,famille,code_departement,famille_libelle,perimetr
     for i in range(new_df.shape[0]):
         results.append(list(new_df.loc[i]))
     return results
+"""
 
 if __name__ == "__main__":
     

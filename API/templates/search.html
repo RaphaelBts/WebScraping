@@ -40,7 +40,7 @@
                         </datalist>
                     {% else %}
                         <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
-                        name="{{ word }}" placeholder="Enter word" required size="6"/>
+                        name="{{ word }}" placeholder="Enter word" size="6"/>
                     {% endif %}
                 {% endif %}
               </div>
@@ -81,7 +81,7 @@
                         </datalist>
                     {% else %}
                         <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
-                        name="{{ word }}" placeholder="Enter word" required size="6"/>
+                        name="{{ word }}" placeholder="Enter word" size="6"/>
                     {% endif %}
                 {% endif %}
               </div>
@@ -122,7 +122,7 @@
                         </datalist>
                     {% else %}
                         <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
-                        name="{{ word }}" placeholder="Enter word" required size="6"/>
+                        name="{{ word }}" placeholder="Enter word" size="6"/>
                     {% endif %}
                 {% endif %}
               </div>
@@ -139,7 +139,9 @@
     <div class="div_result">
         <h1>Result</h1>
         <div>
-            <p>{{ prediction }}</p>
+            {% for pred in prediction %}
+                <p>{% for col in pred %}{{ col }} {% endfor %}</p>
+            {% endfor %}
         </div>
     </div>
     

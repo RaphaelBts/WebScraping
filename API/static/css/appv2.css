@@ -74,7 +74,9 @@ form {
     background-color:cadetblue;
 
     margin: 5px;
-    padding: 5px;
+    padding: 20px;
+
+    text-align: center;
 
     border-radius: 8px;
 }
@@ -88,20 +90,32 @@ form {
 
 .right {
     margin: 10px;
-    margin-top: 0%;
-    margin-right: 0%;
     right:0%;
     height: 70%;
 }
 
+label {
+    margin: 5px;
+}
+
+input, select {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 5px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: dimgray;
+    color: #fff;
+}
+
 button {
-    background-color: #747cdf;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: dimgray;
     color: white;
     font-size: 15px;
     border: none;
     margin-top: 10px;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     outline: none;
     cursor: pointer;
     transition: transform 0.2s;
