@@ -103,8 +103,7 @@ input, select {
     margin: 5px;
     border-radius: 10px;
     text-align: center;
-    background-color: dimgray;
-    color: #fff;
+    background-color: #eee;
 }
 
 button {

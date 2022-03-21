@@ -139,7 +139,7 @@
     <div class="div_result">
         <h1>Result</h1>
         <div>
-            {% for pred in prediction %}
+            {% for pred in prediction['main'] %}
                 <p>{% for col in pred %}{{ col }} {% endfor %}</p>
             {% endfor %}
         </div>

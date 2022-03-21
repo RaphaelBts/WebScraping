@@ -3,6 +3,8 @@ import csv
 import regex as re
 import json
 import requests
+from jsonpath_ng.ext import parse
+import jsonpath
 
 def request_boamp(mot=None,famille=None,code_departement=None,famille_libelle=None,perimetre=None,procedure_categorise=None,nature_categorise_libelle=None,criteres=None,etat=None,descripteur_libelle=None,type_marche=None):
     
@@ -242,8 +244,9 @@ def display_result(df_result):
     if isinstance(df_result,str):
         return df_result
 
-    ps=[]
+    ps={'main':[],'details':[]}
     for i,row in df_result.iterrows():
-        ps.append([row['departement_offre'], row['nomacheteur'], row['datefindiffusion']])
+        ps['main'].append([row['departement_offre'], row['nomacheteur'], row['datefindiffusion']])
+        ps['details'].append([re.search('RESUME_OBJET',re.search('INDEXATION',row['gestion']))])
     
     return ps
