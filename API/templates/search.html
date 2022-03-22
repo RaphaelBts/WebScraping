@@ -11,7 +11,7 @@
               <div class="group">
                 <label for="{{ word }}">{{ word }}</label>
                 {% if word in ask_select.keys() %}
-                    <select name="{{ word }}">
+                    <select name="{{ word }}" class="{{ word }}">
                         {% for a_s in ask_select[word] %}
                             <option value="{{ a_s }}">{{ a_s }}</option>
                         {% endfor %}
@@ -19,7 +19,7 @@
                 {% elif word in ask_checkbox.keys() %}
                     {% for a_s in ask_checkbox[word] %}
                         <div>
-                            <input type="checkbox" class="form-control" ID="{{ a_s }}"
+                            <input type="checkbox" class="{{ word }}" ID="{{ a_s }}"
                             name="{{ a_s }}" form="form_search"/>
                             <label for="{{ a_s }}">{{ a_s }}</label>
                         </div>
@@ -67,10 +67,10 @@
                     {% endfor %}
                 {% else %}
                     {% if ask_type[loop.index]=='number' %}
-                        <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
+                        <input class="{{ word }}" type="{{ ask_type[loop.index] }}" id="{{ word }}"
                         name="{{ word }}" placeholder=1 list="departements"/>
 
-                        <datalist id="departements">
+                        <datalist class="code_departement_list" id="departements">
                             {% for i in range(96) %}
                                 <option value="{{ i }}">
                             {% endfor %}
@@ -135,6 +135,8 @@
             Test
         </button></div>
     </form>
+
+    <script type="text/javascript" charset="UTF-8" src="../static/scripts/select.js"></script>
 
     <div class="div_result">
         <h1>Result</h1>

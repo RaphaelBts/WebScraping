@@ -10,9 +10,9 @@ import random as rd
 from math import *
 from datetime import datetime
 
-from flask import Flask,render_template,request
+from flask import Flask, jsonify,render_template,request
 
-from request import request_boamp,display_result
+from request import request_boamp,display_result,field_actualized
 
 app = Flask(__name__)
 
@@ -34,16 +34,23 @@ def error404(e):
 def sub():
     return render_template('subsciption.html')
 
+ask=[
+        'mot','famille','criteres','type_marche','descripteur_libelle','code_departement','nature_categorise_libelle',
+        'famille_libelle','perimetre','procedure_categorise','etat'
+        ]            # Add things to ask
+
+@app.route("/search/<famille>/<criteres>/<type_marche>/<descripteur_libelle>/<code_departement>/<nature_categorise_libelle>/<famille_libelle>/<perimetre>/<procedure_categorise>/<etat>")
+def fetch_options(famille,criteres,type_marche,descripteur_libelle,code_departement,nature_categorise_libelle,famille_libelle,perimetre,procedure_categorise,etat):
+    returned = field_actualized(famille,criteres,type_marche,descripteur_libelle,code_departement,nature_categorise_libelle,famille_libelle,perimetre,procedure_categorise,etat)
+
+    return jsonify(returned)
 
 @app.route("/search", methods=['GET','POST'])
 def search():
     if not 'new_prediction' in locals():
         new_prediction=''
 
-    ask=[
-        'mot','famille','criteres','type_marche','descripteur_libelle','code_departement','nature_categorise_libelle',
-        'famille_libelle','perimetre','procedure_categorise','etat'
-        ]            # Add things to ask
+    
     ask_type=['text','text','none', 'text','text','text','number','text','text','text','text','text','text']                              # Add type of the things to ask
     ask_select={
         'famille':['FNS','JOUE','MAP','DSP','DIVERS'],

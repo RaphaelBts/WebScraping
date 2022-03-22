@@ -250,3 +250,31 @@ def display_result(df_result):
         ps['details'].append([re.search('RESUME_OBJET',re.search('INDEXATION',row['gestion']))])
     
     return ps
+
+def get_field(field_name,request):
+    jsonpath_expression = parse(f"$.facets[?(@.name == {field_name})].facets[*]")
+    adjusted_fields={}
+    for match in jsonpath_expression.find(request):
+        adjusted_fields[match.value['name']]=match.value['count']
+    return adjusted_fields
+
+def field_actualized(famille=None,famille_libelle=None,code_departement=None,perimetre=None,procedure_categorise=None,nature_categorise_libelle=None,criteres=None,etat=None,descripteur_libelle=None,type_marche=None):
+    refine_facets={'famille':famille, 'code_departement':code_departement,'famille_libelle':famille_libelle,'perimetre':perimetre,'procedure_categorise':procedure_categorise,'nature_categorise_libelle':nature_categorise_libelle,'criteres':criteres,'etat':etat,'descripteur_libelle':descripteur_libelle,'type_marche':type_marche}
+    infos={ #Enlever le facet de la case en question 
+        'facet':["famille","code_departement","famille_libelle","perimetre","procedure_categorise","nature_categorise_libelle","criteres","etat","type_marche","descripteur_libelle"]
+        }
+    refined=[]
+    for key,value in refine_facets.items():
+        if value != None and value != "None":
+            refined.append(key+':'+value)
+    infos['refine']=refined 
+
+    request_fields=requests.get("https://boamp-datadila.opendatasoft.com/api/v2/catalog/datasets/boamp/facets?",params=infos).json()
+    #print(request_fields)
+    all_facets = ["famille","code_departement","famille_libelle","perimetre","procedure_categorise","nature_categorise_libelle","criteres","etat","type_marche","descripteur_libelle"] #adapter l'ordre au case (pr rapidité + la selection (enlever les champs déja remplis))
+    #enlever famille puis +1 à chaque fois qu'un champs a déja été remplis en checkant dans un dict qui est remplis sur des event filled boxes....
+    adjusted = {}
+    for elem in all_facets:
+        adjusted[elem] = get_field(elem,request_fields)
+    
+    return adjusted
