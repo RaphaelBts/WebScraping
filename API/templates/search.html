@@ -11,11 +11,7 @@
               <div class="group">
                 <label for="{{ word }}">{{ word }}</label>
                 {% if word in ask_select.keys() %}
-                    <select name="{{ word }}" class="{{ word }}">
-                        {% for a_s in ask_select[word] %}
-                            <option value="{{ a_s }}">{{ a_s }}</option>
-                        {% endfor %}
-                    </select>
+                    <select name="{{ word }}" class="{{ word }}"></select>
                 {% elif word in ask_checkbox.keys() %}
                     {% for a_s in ask_checkbox[word] %}
                         <div>
@@ -52,11 +48,7 @@
                 <div class="group">
                 <label for="{{ word }}">{{ word }}</label>
                 {% if word in ask_select.keys() %}
-                    <select name="{{ word }}">
-                        {% for a_s in ask_select[word] %}
-                            <option value="{{ a_s }}">{{ a_s }}</option>
-                        {% endfor %}
-                    </select>
+                    <select name="{{ word }}" class="{{ word }}"></select>
                 {% elif word in ask_checkbox.keys() %}
                     {% for a_s in ask_checkbox[word] %}
                         <div>
@@ -93,11 +85,7 @@
                 <div class="group">
                 <label for="{{ word }}">{{ word }}</label>
                 {% if word in ask_select.keys() %}
-                    <select name="{{ word }}">
-                        {% for a_s in ask_select[word] %}
-                            <option value="{{ a_s }}">{{ a_s }}</option>
-                        {% endfor %}
-                    </select>
+                    <select name="{{ word }}" class="{{ word }}"></select>
                 {% elif word in ask_checkbox.keys() %}
                     {% for a_s in ask_checkbox[word] %}
                         <div>
@@ -140,11 +128,17 @@
 
     <div class="div_result">
         <h1>Result</h1>
-        <div>
-            {% for pred in prediction['main'] %}
-                <p>{% for col in pred %}{{ col }} {% endfor %}</p>
+        <div class="inner_div_result">
+            {% for i in range(prediction['main']|length) %}
+                <p>{% for key,val in prediction['main'][i].items() %}{{ val }} {% endfor %}</p>
             {% endfor %}
         </div>
+        <div class="inner_div_result_details" id="div_details"></div>
+        {% if button_on == True %}
+        <button type="button" class="button_style" id="button_details" value="{{ prediction['jsonified'] }}">Details</button>
+        {% endif %}
     </div>
+
+    <script type="text/javascript" charset="UTF-8" src="../static/scripts/details.js"></script>
     
 {% endblock %}

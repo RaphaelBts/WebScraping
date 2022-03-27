@@ -5,6 +5,7 @@ import json
 import requests
 from jsonpath_ng.ext import parse
 import jsonpath
+import flask
 
 def request_boamp(mot=None,famille=None,code_departement=None,famille_libelle=None,perimetre=None,procedure_categorise=None,nature_categorise_libelle=None,criteres=None,etat=None,descripteur_libelle=None,type_marche=None):
     
@@ -33,7 +34,7 @@ def request_boamp(mot=None,famille=None,code_departement=None,famille_libelle=No
         for key in keys_to_pop:
             infos.pop(key)
         req=requests.get('https://boamp-datadila.opendatasoft.com/api/records/1.0/search/?',params=infos)
-        print(req.url)
+        #print(req.url)
         final_response=requests.get('https://boamp-datadila.opendatasoft.com/api/records/1.0/search/?',params=infos).json()
         
         return final_response
@@ -240,14 +241,18 @@ def request_boamp(mot=None,famille=None,code_departement=None,famille_libelle=No
     return the_one
 
 def display_result(df_result):
-
+    
     if isinstance(df_result,str):
         return df_result
 
-    ps={'main':[],'details':[]}
+    ps={"main":{},"details":{}}
     for i,row in df_result.iterrows():
-        ps['main'].append([row['departement_offre'], row['nomacheteur'], row['datefindiffusion']])
-        ps['details'].append([re.search('RESUME_OBJET',re.search('INDEXATION',row['gestion']))])
+        ps["main"][i] = {"departement":row["departement_offre"], "acheteur":row["nomacheteur"], "fin de diffusion":row["datefindiffusion"]}
+        detail = re.search("INDEXATION.+",row["gestion"]).group(0)
+        detail = re.search("RESUME_OBJET.+?}",detail).group(0)
+        detail = detail.replace("RESUME_OBJET\": \"","").replace("\"}","")
+        ps["details"][i] = detail
+    ps["jsonified"]=json.dumps(ps)
     
     return ps
 

@@ -47,6 +47,9 @@ def fetch_options(famille,criteres,type_marche,descripteur_libelle,code_departem
 
 @app.route("/search", methods=['GET','POST'])
 def search():
+
+    button = False
+
     if not 'new_prediction' in locals():
         new_prediction=''
 
@@ -67,6 +70,8 @@ def search():
         new_data.drop(values, axis=1, errors='ignore', inplace=True)
 
     if not new_data.empty:
+
+        button = True
 
         for key in ask_checkbox.keys():
             new_data[key]=[[]]
@@ -92,7 +97,7 @@ def search():
 
         new_prediction=display_result(request_boamp(**parameters))                                                            # Add function to return offers.
         #new_prediction=retrieve("FNS","sociaux","SERVICES","Menuiserie")  -- to test
-    return render_template('search.html', ask=ask, ask_type=ask_type, prediction=new_prediction, ask_select=ask_select, ask_checkbox=ask_checkbox)
+    return render_template('search.html', ask=ask, ask_type=ask_type, prediction=new_prediction, ask_select=ask_select, ask_checkbox=ask_checkbox, button_on = button)
 
 """ Old retrieve functions
 def retrieve(famille,criteres,type_marche,descripteur_libelle):
