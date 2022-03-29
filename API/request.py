@@ -29,7 +29,7 @@ def request_boamp(mot=None,famille=None,code_departement=None,famille_libelle=No
             }
         keys_to_pop = []
         for key in infos.keys():
-            if infos[key]==None or infos[key]=='' or infos[key]=='TOUT':
+            if infos[key]==None or infos[key]=='None' or infos[key]=='' or infos[key]=='TOUT':
                 keys_to_pop.append(key)
         for key in keys_to_pop:
             infos.pop(key)
