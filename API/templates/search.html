@@ -127,7 +127,7 @@
     <script type="text/javascript" charset="UTF-8" src="../static/scripts/select.js"></script>
 
     <div class="div_result">
-        <h1>Result</h1>
+        <h1>Results</h1>
         <div class="inner_div_result">
             {% for i in range(prediction['main']|length) %}
                 <p class="main_{{i|string}}" style="height: auto;">{% for key,val in prediction['main'][i].items() %}{{ val }} {% endfor %}</p>
