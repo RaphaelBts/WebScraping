@@ -10,6 +10,8 @@
  * - Plus de result avec des pages ;
  * - Serverless launching ;
  * - Renomer les champs ;
+ * - Rajouter le logo ;
+ * - Faire le Read me ;
  * 
  * FAIT
  * 
@@ -23,10 +25,10 @@ const select_famille =  document.querySelector(".famille");
 const select_type_marche = document.querySelector(".type_marche");
 const select_nature_categorise_libelle = document.querySelector(".nature_categorise_libelle");
 const select_etat = document.querySelector(".etat");
-const select_descripteur_libelle = document.querySelector("#descripteur_libelle");
-const select_famille_libelle = document.querySelector("#famille_libelle");
-const select_perimetre = document.querySelector("#perimetre");
-const select_procedure_categorise = document.querySelector("#procedure_categorise");
+const select_descripteur_libelle = document.querySelector(".descripteur_libelle");
+const select_famille_libelle = document.querySelector(".famille_libelle");
+const select_perimetre = document.querySelector(".perimetre");
+const select_procedure_categorise = document.querySelector(".procedure_categorise");
 
 const div_input_criteres = document.querySelector(".div_input_criteres");
 
@@ -49,7 +51,7 @@ const create_options = function (data,selector,selected) {
             
     for (const [sel,nb] of Object.entries(data[selected])) {
         if (sel !== selected_value) {
-            optionHTML += '<option value="' + sel + '">' + sel + '</option>';
+            optionHTML += '<option value="' + sel + '">' + sel + ' (' + nb + ')' + '</option>';
         }
     }
 
@@ -320,81 +322,15 @@ div_input_criteres.onchange = function () {
 document.addEventListener('DOMContentLoaded', async () => {
     fetch("/search/" + to_fetch.join('/')).then(function (response) {
         response.json().then(function (data) {
-            let optionHTML = '<option value="None">Tout</option>';
 
-            for (const [famille,nb] of Object.entries(data.famille)) {
-                optionHTML += '<option value="' + famille + '">' + famille + '</option>';
-            }
-        
-            select_famille.innerHTML = optionHTML;
-
-            optionHTML = '<option value="None">Tout</option>';
-            
-            for (const [type_marche,nb] of Object.entries(data.type_marche)) {
-                optionHTML += '<option value="' + type_marche + '">' + type_marche + '</option>';
-            }
-
-            select_type_marche.innerHTML = optionHTML;
-
-            optionHTML = '<option value="None">Tout</option>';
-            
-            for (const [nature_categorise_libelle,nb] of Object.entries(data.nature_categorise_libelle)) {
-                optionHTML += '<option value="' + nature_categorise_libelle + '">' + nature_categorise_libelle + '</option>';
-            }
-
-            select_nature_categorise_libelle.innerHTML = optionHTML;
-
-            optionHTML = '<option value="None">Tout</option>';
-
-            optionHTML += '<datalist class="code_departement_list" id="departements">';
-            
-            for (const [code_departement,nb] of Object.entries(data.code_departement)) {
-                optionHTML += '<option value="' + code_departement + '">';
-            }
-
-            optionHTML += '</datalist>';
-
-            input_code_departement.setAttribute('list',optionHTML);
-
-            optionHTML = '<option value="None">Tout</option>';
-            
-            for (const [etat,nb] of Object.entries(data.etat)) {
-                optionHTML += '<option value="' + etat + '">' + etat + '</option>';
-            }
-
-            select_etat.innerHTML = optionHTML;
-
-            optionHTML = '<option value="None">Tout</option>';
-            
-            for (const [descripteur_libelle,nb] of Object.entries(data.descripteur_libelle)) {
-                optionHTML += '<option value="' + descripteur_libelle + '">' + descripteur_libelle + '</option>';
-            }
-
-            select_descripteur_libelle.innerHTML = optionHTML;
-
-            optionHTML = '<option value="None">Tout</option>';
-            
-            for (const [famille_libelle,nb] of Object.entries(data.famille_libelle)) {
-                optionHTML += '<option value="' + famille_libelle + '">' + famille_libelle + '</option>';
-            }
-
-            select_famille_libelle.innerHTML = optionHTML;
-
-            optionHTML = '<option value="None">Tout</option>';
-            
-            for (const [perimetre,nb] of Object.entries(data.perimetre)) {
-                optionHTML += '<option value="' + perimetre + '">' + perimetre + '</option>';
-            }
-
-            select_perimetre.innerHTML = optionHTML;
-
-            optionHTML = '<option value="None">Tout</option>';
-            
-            for (const [procedure_categorise,nb] of Object.entries(data.procedure_categorise)) {
-                optionHTML += '<option value="' + procedure_categorise + '">' + procedure_categorise + '</option>';
-            }
-
-            select_procedure_categorise.innerHTML = optionHTML;
+            create_options(data,select_famille,"famille");
+            create_options(data,select_type_marche,"type_marche");
+            create_options(data,select_descripteur_libelle,"descripteur_libelle");
+            create_options(data,select_nature_categorise_libelle,"nature_categorise_libelle");
+            create_options(data,select_famille_libelle,"famille_libelle");
+            create_options(data,select_perimetre,"perimetre");
+            create_options(data,select_procedure_categorise,"procedure_categorise");
+            create_options(data,select_etat,"etat");
         });
     });
 });

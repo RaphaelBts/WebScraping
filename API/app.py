@@ -37,7 +37,7 @@ def sub():
 ask=[
         'mot','famille','criteres','type_marche','descripteur_libelle','code_departement','nature_categorise_libelle',
         'famille_libelle','perimetre','procedure_categorise','etat'
-        ]            # Add things to ask
+        ]
 
 @app.route("/search/<famille>/<criteres>/<type_marche>/<descripteur_libelle>/<code_departement>/<nature_categorise_libelle>/<famille_libelle>/<perimetre>/<procedure_categorise>/<etat>")
 def fetch_options(famille,criteres,type_marche,descripteur_libelle,code_departement,nature_categorise_libelle,famille_libelle,perimetre,procedure_categorise,etat):
@@ -59,7 +59,12 @@ def search():
         'famille':['FNS','JOUE','MAP','DSP','DIVERS'],
         'type_marche':['TOUT','SERVICES','TRAVAUX','FOURNITURES'],
         'nature_categorise_libelle':['Avis de marché','Résultat de marché','Rectificatif','Avis informatif','Avis d\'intention de conclure','Modification','Autre','Periodique'],
-        'etat':['INITIAL','RECTIFICATIF','RECTIFICANNUL','ANNULATION','MODIFICATION','INCONNU']
+        'etat':['INITIAL','RECTIFICATIF','RECTIFICANNUL','ANNULATION','MODIFICATION','INCONNU'],
+        'descripteur_libelle':[],
+        'code_departement':[],
+        'famille_libelle':[],
+        'perimetre':[],
+        'procedure_categorise':[]
         }
     
     ask_checkbox={'criteres':["environnementaux","sociaux"]}

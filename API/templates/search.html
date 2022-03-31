@@ -110,7 +110,7 @@
                         </datalist>
                     {% else %}
                         <input class="form-control" type="{{ ask_type[loop.index] }}" id="{{ word }}"
-                        name="{{ word }}" placeholder="Enter word" size="6"/>
+                        name="{{ word }}" placeholder="Search" size="6"/>
                     {% endif %}
                 {% endif %}
               </div>
@@ -130,7 +130,7 @@
         <h1>Result</h1>
         <div class="inner_div_result">
             {% for i in range(prediction['main']|length) %}
-                <p>{% for key,val in prediction['main'][i].items() %}{{ val }} {% endfor %}</p>
+                <p class="main_{{i|string}}" style="height: auto;">{% for key,val in prediction['main'][i].items() %}{{ val }} {% endfor %}</p>
             {% endfor %}
         </div>
         <div class="inner_div_result_details" id="div_details"></div>

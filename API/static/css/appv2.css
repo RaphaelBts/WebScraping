@@ -10,6 +10,22 @@ body {
 }
 
 .wrapper {
+    position: relative;
+    top: 50px;
+    margin-bottom: 40px;
+    margin: auto;
+    padding: 10px;
+    width: 900px;
+}
+
+h1 {
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+/*
+.wrapper {
     position: absolute;
     margin: 0px;
     margin-top: 20px;
@@ -18,16 +34,20 @@ body {
     left: 50%;
     transform: translate(-50%,-50%);
 }
+*/
 
 a {
     color: rgb(27, 191, 202);
 }
 
 nav {
+    position: fixed;
     text-align: center;
     background-color: rgb(34, 88, 102);
     padding: 1em 0;
     border-top: 4px solid rgb(27, 191, 202);
+    width: 100%;
+    z-index: 1;
 }
 
 nav ul {
@@ -60,11 +80,12 @@ form {
     margin: 5px;
     margin-bottom: 20px;
     padding: 5px;
+    padding-bottom: 10px;
 
     border-radius: 8px;
 }
 
-.div_form {    
+.div_form {
     position: relative;
 
     display: flex;
@@ -72,6 +93,8 @@ form {
 }
 
 .div_result {
+    position: relative;
+
     background-color:cadetblue;
 
     margin: 5px;
@@ -107,6 +130,23 @@ input, select {
     background-color: #eee;
 }
 
+.div_result {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.inner_div_result {
+    position: relative;
+    width: 45%;
+    margin-right: 5px;
+}
+
+.inner_div_result_details {
+    position: relative;
+    width: 45%;
+    margin-left: 5px;
+}
+
 button {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-color: dimgray;
@@ -124,12 +164,18 @@ button:hover {
     transform: scale(1.05);
 }
 
-footer {
-    position: fixed;
+#button_details {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%,0%);
+}
 
-    bottom : 0;
+footer {
+    position: relative;
+
     left:0;
 
+    margin-top: 50px;
     margin-bottom: 2px;
     width: 100%;
     text-align: center;

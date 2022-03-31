@@ -10,18 +10,20 @@ if (button_detail !== null) {
 
         predictions = JSON.parse(predictions);
 
-        console.log(predictions);
-        console.log(typeof(predictions));
-
         if (button_detail.innerHTML == "Details") {
 
             for (let [nb,detail] of Object.entries(predictions["details"]) ) {
 
-                console.log(typeof(detail));
-
                 let template = document.createElement("p");
-                template.innerHTML = detail;
-    
+                template.innerHTML = '';
+                for (let [nb_bis,detail_bis] of Object.entries(detail)) {
+                    template.innerHTML += detail_bis + ' ';
+                }
+
+                let corresponding = document.querySelector('.main_'+nb).offsetHeight;
+
+                template.style.height = corresponding + "px";
+
                 inner_div_details.appendChild(template);
             }
 

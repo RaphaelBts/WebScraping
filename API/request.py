@@ -247,11 +247,20 @@ def display_result(df_result):
 
     ps={"main":{},"details":{}}
     for i,row in df_result.iterrows():
-        ps["main"][i] = {"departement":row["departement_offre"], "acheteur":row["nomacheteur"], "fin de diffusion":row["datefindiffusion"]}
-        detail = re.search("INDEXATION.+",row["gestion"]).group(0)
-        detail = re.search("RESUME_OBJET.+?}",detail).group(0)
-        detail = detail.replace("RESUME_OBJET\": \"","").replace("\"}","")
-        ps["details"][i] = detail
+        ps["main"][i] = {"acheteur":row["nomacheteur"]}
+        ps["main"][i]["objet"] = row["TITRE_MARCHE"]
+        #detail = re.search("INDEXATION.+",row["gestion"]).group(0)
+        #detail = re.search("RESUME_OBJET.+?}",detail).group(0)
+        #detail = detail.replace("RESUME_OBJET\": \"","").replace("\"}","")
+
+        ps["details"][i] = {}
+        ps["details"][i]["departement"] = row["departement_offre"]
+        ps["details"][i]["fin de diffusion"] = row["datefindiffusion"]
+        ps["details"][i]["type de marche"] = row["type_marche"]
+        ps["details"][i]["libelle du descripteur"] = row["descripteur_libelle"]
+        ps["details"][i]["famille libelle"] = row["famille_libelle"]
+
+        #ps["details"][i] = detail
     ps["jsonified"]=json.dumps(ps)
     
     return ps
